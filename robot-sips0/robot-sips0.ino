@@ -27,7 +27,7 @@ void setup() {
 
 void loop() {
   m5.begin();
-  m5.lcd.print ("hello world");
+  m5.lcd.print ("salut je suis louis");
   Dabble.processInput();             //this function is used to refresh data obtained from smartphone.Hence calling this function is mandatory in order to get data properly from your mobile.
   Serial.print("KeyPressed: ");
   if (GamePad.isUpPressed())
