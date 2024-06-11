@@ -1,13 +1,20 @@
+/*
+   Gamepad module provides three different mode namely Digital, JoyStick and Accerleometer.
+
+   You can reduce the size of library compiled by enabling only those modules that you want to
+   use. For this first define CUSTOM_SETTINGS followed by defining INCLUDE_modulename.
+
+   Explore more on: https://thestempedia.com/docs/dabble/game-pad-module/
+*/
 #include <M5Stack.h>
 #include <Arduino.h>
-#include <DabbleESP32.h>
 #define CUSTOM_SETTINGS
 #define INCLUDE_GAMEPAD_MODULE
+#include <DabbleESP32.h>
 void setup() {
-  M5.Lcd.setTextSize(4);
-  M5.begin();
-  Serial.begin(115200);      
-  Dabble.begin("MyEsp32");
+  // put your setup code here, to run once:
+  Serial.begin(115200);      // make sure your Serial Monitor is also set at this baud rate.
+  Dabble.begin("MyEsp32");       //set bluetooth name of your device
   pinMode(1 , OUTPUT);
   pinMode(2 , OUTPUT); 
   pinMode(3 , OUTPUT);       
@@ -19,19 +26,68 @@ void setup() {
 }
 
 void loop() {
-  /**digitalWrite(1,LOW);
-  digitalWrite(2,LOW);
-  digitalWrite(3,LOW);
-  digitalWrite(5,LOW);*/
-
-  M5.Lcd.setCursor( 50, 50);
-  Dabble.processInput();             
+  m5.begin();
+  m5.lcd.print ("hello world");
+  Dabble.processInput();             //this function is used to refresh data obtained from smartphone.Hence calling this function is mandatory in order to get data properly from your mobile.
   Serial.print("KeyPressed: ");
-  //m5.lcd.println("tu vas tout droit");
-  
-  int a = GamePad.getAngle(); 
+  if (GamePad.isUpPressed())
+  {
+    Serial.print("Up");
+  }
+
+  if (GamePad.isDownPressed())
+  {
+    Serial.print("Down");
+  }
+
+  if (GamePad.isLeftPressed())
+  {
+    Serial.print("Left");
+  }
+
+  if (GamePad.isRightPressed())
+  {
+    Serial.print("Right");
+  }
+
+  if (GamePad.isSquarePressed())
+  {
+    Serial.print("Square");
+  }
+
+  if (GamePad.isCirclePressed())
+  {
+    Serial.print("Circle");
+  }
+
+  if (GamePad.isCrossPressed())
+  {
+    Serial.print("Cross");
+  }
+
+  if (GamePad.isTrianglePressed())
+  {
+    Serial.print("Triangle");
+  }
+
+  if (GamePad.isStartPressed())
+  {
+    Serial.print("Start");
+  }
+
+  if (GamePad.isSelectPressed())
+  {
+    Serial.print("Select");
+  }
+  Serial.print('\t');
+
+  int a = GamePad.getAngle();
   Serial.print("Angle: ");
   Serial.print(a);
+  Serial.print('\t');
+  int b = GamePad.getRadius();
+  Serial.print("Radius: ");
+  Serial.print(b);
   Serial.print('\t');
   float c = GamePad.getXaxisData();
   Serial.print("x_axis: ");
@@ -42,64 +98,10 @@ void loop() {
   Serial.println(d);
   Serial.println();
 
-  /**if (!GamePad.isSquarePressed() && !GamePad.isCirclePressed() && !GamePad.isCrossPressed() &&
-      !GamePad.isTrianglePressed() && !((0 < a && 180 >= a )) && !(( 180 < a && 360 >= a )))
-      {
-        digitalWrite(1,LOW);
-        digitalWrite(2,LOW);
-        digitalWrite(3,LOW);
-        digitalWrite(5,LOW);*/
 
-  //else {
+  analogWrite(2, (int)36*d);
+  analogWrite(1, (int)36*d);
+  analogWrite(1, (int)50*d-c);
+  analogWrite(2, (int)50*c-d);
 
-  //if ((0 < a && 180 >= a ))// tout droit
-  //{
-    //m5.lcd.println("tu vas tout droit");
-    //M5.Lcd.clear(BLACK);
-    analogWrite(1, (int)36*d);
-    analogWrite(2, (int)36*d);
-
-  }
-  //if (( 180 < a && 360 >= a )) 
-  //{
-    //m5.lcd.println("tu vas en arriere");// en arriere 
-    //    M5.Lcd.clear(BLACK);
-    /**digitalWrite(1,HIGH);
-    digitalWrite(3,HIGH);
-    digitalWrite(2,HIGH);
-    digitalWrite(5,HIGH);*/
-    analogWrite(1, (int)36*d);
-    analogWrite(2, (int)36*d);
-    digitalWrite(3,HIGH);
-    digitalWrite(5,HIGH);
-
-
-  
-  /**if (a == 0 ){
-  digitalWrite(1, LOW);   
-  digitalWrite(3, LOW);
-  }*/
-}
-   
-    /**digitalWrite(1,HIGH);
-    digitalWrite(2,HIGH);
-    digitalWrite(5,HIGH);
-    Serial.printf("roule\n");*/
-    analogWrite(1, (int)36*d-c);
-    analogWrite(2, (int)36*d+c);
-
-    /**digitalWrite(2,HIGH);
-    digitalWrite(1,HIGH);
-    digitalWrite(3,HIGH);
-    Serial.printf("roule\n");*/
-    analogWrite(1, (int)36*d+c);
-    analogWrite(2, (int)36*d-c);
-
-if (GamePad.isCrossPressed())//stop
-{
-  
-    digitalWrite(1,LOW);
-    digitalWrite(2,LOW);
-    Serial.printf("stop\n");
-}  
 }
