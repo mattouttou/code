@@ -18,7 +18,8 @@ void setup() {
   digitalWrite(5,LOW);
 }
 
-void loop() {
+void loop() 
+{
   /**digitalWrite(1,LOW);
   digitalWrite(2,LOW);
   digitalWrite(3,LOW);
@@ -59,7 +60,6 @@ void loop() {
     analogWrite(1, (int)36*d);
     analogWrite(2, (int)36*d);
 
-  }
   //if (( 180 < a && 360 >= a )) 
   //{
     //m5.lcd.println("tu vas en arriere");// en arriere 
@@ -79,7 +79,7 @@ void loop() {
   digitalWrite(1, LOW);   
   digitalWrite(3, LOW);
   }*/
-}
+
    
     /**digitalWrite(1,HIGH);
     digitalWrite(2,HIGH);
@@ -92,14 +92,14 @@ void loop() {
     digitalWrite(1,HIGH);
     digitalWrite(3,HIGH);
     Serial.printf("roule\n");*/
-    analogWrite(1, (int)36*d+c);
-    analogWrite(2, (int)36*d-c);
+   // analogWrite(1, (int)36*d+c);
+   // analogWrite(2, (int)36*d-c);
 
-if (GamePad.isCrossPressed())//stop
-{
-  
-    digitalWrite(1,LOW);
-    digitalWrite(2,LOW);
-    Serial.printf("stop\n");
-}  
+  if (GamePad.isCrossPressed())//stop
+  {
+    
+      digitalWrite(1,LOW);
+      digitalWrite(2,LOW);
+      Serial.printf("stop\n");
+  }  
 }
